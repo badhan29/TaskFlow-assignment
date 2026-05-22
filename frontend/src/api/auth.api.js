@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5009/api",
+  baseURL: "https://taskflow-assignment-fx4p.onrender.com/api",
 });
 
 export const registerUser = async (userData) => {

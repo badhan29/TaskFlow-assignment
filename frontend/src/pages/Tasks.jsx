@@ -5,6 +5,7 @@ import API from "../api/project.api";
 import TaskForm from "../components/tasks/TaskForm";
 import TaskCard from "../components/tasks/TaskCard";
 import { showError } from "../utils/notification";
+import AuthButton from "../components/common/Logout";
 
 const STATUS_FILTERS = [
   { key: "all", label: "All Tasks", emoji: "◈" },
@@ -111,20 +112,27 @@ export default function Tasks() {
         fontFamily: "'DM Sans', sans-serif",
       }}
     >
-      <header className="tf-header">
-        <div className="tf-header-inner">
-          <button className="tf-back-btn" onClick={() => navigate("/projects")}>
-            ← Projects
-          </button>
-          <button
-            className={`tf-add-btn ${showForm ? "cancel" : ""}`}
-            onClick={() => setShowForm((s) => !s)}
-          >
-            <span style={{ fontSize: 16, lineHeight: 1 }}>
-              {showForm ? "×" : "+"}
-            </span>
-            {showForm ? "Cancel" : "New Task"}
-          </button>
+      <header className="pp-header">
+        <div className="pp-header-inner">
+          <span className="pp-logo">TaskFlow</span>
+          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            <button
+              className="tf-back-btn"
+              onClick={() => navigate("/projects")}
+            >
+              ← Projects
+            </button>
+            <button
+              className={`tf-add-btn ${showForm ? "cancel" : ""}`}
+              onClick={() => setShowForm((s) => !s)}
+            >
+              <span style={{ fontSize: 16, lineHeight: 1 }}>
+                {showForm ? "×" : "+"}
+              </span>
+              {showForm ? "Cancel" : "New Task"}
+            </button>
+            <AuthButton />
+          </div>
         </div>
       </header>
 

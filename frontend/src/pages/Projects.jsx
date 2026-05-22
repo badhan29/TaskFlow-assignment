@@ -3,6 +3,7 @@ import API from "../api/project.api";
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import ProjectCard from "../components/common/ProjectCard";
+import AuthButton from "../components/common/Logout";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -71,6 +72,7 @@ const Projects = () => {
               </span>
               {showForm ? "Cancel" : "New Project"}
             </button>
+            <AuthButton /> 
           </div>
         </div>
       </header>
