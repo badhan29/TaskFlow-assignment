@@ -19,7 +19,6 @@ export default function TaskForm({ projectId, onTaskAdd }) {
     e.preventDefault();
     if (!form.title.trim()) return setErr("Title is required");
 
-    // Build payload — only include optional fields if filled
     const payload = {
       title: form.title.trim(),
       description: form.description.trim(),
@@ -27,7 +26,6 @@ export default function TaskForm({ projectId, onTaskAdd }) {
       project: projectId,
     };
     if (form.dueDate) payload.dueDate = form.dueDate;
-   
 
     try {
       setErr("");
@@ -49,7 +47,6 @@ export default function TaskForm({ projectId, onTaskAdd }) {
 
         {err && <div className="tform-err">⚠ {err}</div>}
 
-        {/* Title */}
         <input
           className="tform-input"
           name="title"
@@ -58,7 +55,6 @@ export default function TaskForm({ projectId, onTaskAdd }) {
           onChange={handleChange}
         />
 
-        {/* Description */}
         <textarea
           className="tform-input tform-textarea"
           name="description"
@@ -77,9 +73,9 @@ export default function TaskForm({ projectId, onTaskAdd }) {
               value={form.priority}
               onChange={handleChange}
             >
-              <option value="low">🔵 Low</option>
-              <option value="medium">🟠 Medium</option>
-              <option value="high">🔴 High</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
             </select>
           </div>
           <div>

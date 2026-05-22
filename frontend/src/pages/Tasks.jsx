@@ -61,7 +61,7 @@ export default function Tasks() {
 
   const handleTaskUpdate = (updated) => {
     setTasks((prev) =>
-      prev.map((t) => (String(t._id) === String(updated._id) ? updated : t))
+      prev.map((t) => (String(t._id) === String(updated._id) ? updated : t)),
     );
   };
 
@@ -81,21 +81,36 @@ export default function Tasks() {
       ? tasks
       : tasks.filter((t) => t.status === activeFilter);
 
-  const progress = tasks.length > 0
-    ? Math.round((taskStats.done / tasks.length) * 100)
-    : 0;
+  const progress =
+    tasks.length > 0 ? Math.round((taskStats.done / tasks.length) * 100) : 0;
 
   if (!project && !error && loading === false && tasks.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#f8fafc" }}>
-        <div style={{ color: "#64748b", fontFamily: "'DM Mono', monospace", fontSize: 13 }}>Loading project…</div>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#f8fafc" }}
+      >
+        <div
+          style={{
+            color: "#64748b",
+            fontFamily: "'DM Mono', monospace",
+            fontSize: 13,
+          }}
+        >
+          Loading project…
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: "'DM Sans', sans-serif" }}>
-      {/* Header */}
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f8fafc",
+        fontFamily: "'DM Sans', sans-serif",
+      }}
+    >
       <header className="tf-header">
         <div className="tf-header-inner">
           <button className="tf-back-btn" onClick={() => navigate("/projects")}>
@@ -105,14 +120,15 @@ export default function Tasks() {
             className={`tf-add-btn ${showForm ? "cancel" : ""}`}
             onClick={() => setShowForm((s) => !s)}
           >
-            <span style={{ fontSize: 16, lineHeight: 1 }}>{showForm ? "×" : "+"}</span>
+            <span style={{ fontSize: 16, lineHeight: 1 }}>
+              {showForm ? "×" : "+"}
+            </span>
             {showForm ? "Cancel" : "New Task"}
           </button>
         </div>
       </header>
 
       <main className="tf-main">
-        {/* Project Info */}
         <div className="tf-project-header">
           <h1 className="tf-project-name">{project?.title || "Tasks"}</h1>
           {project?.description && (
@@ -121,14 +137,19 @@ export default function Tasks() {
           {tasks.length > 0 && (
             <>
               <div className="tf-progress-bar">
-                <div className="tf-progress-fill" style={{ width: `${progress}%` }} />
+                <div
+                  className="tf-progress-fill"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
-              <div className="tf-progress-label">{progress}% complete · {taskStats.done} of {tasks.length} tasks done</div>
+              <div className="tf-progress-label">
+                {progress}% complete · {taskStats.done} of {tasks.length} tasks
+                done
+              </div>
             </>
           )}
         </div>
 
-        {/* Status Filter Tabs */}
         {tasks.length > 0 && (
           <div className="tf-filters">
             {STATUS_FILTERS.map((f) => (
@@ -145,14 +166,12 @@ export default function Tasks() {
           </div>
         )}
 
-        {/* Task Form */}
         {showForm && (
           <div style={{ marginBottom: 20 }}>
             <TaskForm projectId={projectId} onTaskAdd={handleTaskAdd} />
           </div>
         )}
 
-        {/* Task List */}
         {loading && tasks.length === 0 ? (
           <div className="tf-empty">
             <div className="tf-empty-title">Loading tasks…</div>
@@ -160,7 +179,13 @@ export default function Tasks() {
         ) : filteredTasks.length === 0 ? (
           <div className="tf-empty">
             <div className="tf-empty-icon">
-              {activeFilter === "all" ? "✦" : activeFilter === "todo" ? "○" : activeFilter === "in-progress" ? "◑" : "●"}
+              {activeFilter === "all"
+                ? "✦"
+                : activeFilter === "todo"
+                  ? "○"
+                  : activeFilter === "in-progress"
+                    ? "◑"
+                    : "●"}
             </div>
             <div className="tf-empty-title">
               {activeFilter === "all"
@@ -169,7 +194,7 @@ export default function Tasks() {
             </div>
             <div className="tf-empty-sub">
               {activeFilter === "all"
-                ? "Click \"New Task\" to add your first one."
+                ? 'Click "New Task" to add your first one.'
                 : "Tasks with this status will appear here."}
             </div>
           </div>

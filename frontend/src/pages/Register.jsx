@@ -1,5 +1,3 @@
-// src/pages/Register.jsx
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -36,20 +34,14 @@ const Register = () => {
 
       const data = await registerUser(formData);
 
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify(data)
-      );
+      localStorage.setItem("userInfo", JSON.stringify(data));
       localStorage.setItem("token", data.token);
 
       toast.success("Account Created Successfully");
 
       navigate("/projects");
     } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-          "Something went wrong"
-      );
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -58,21 +50,13 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
-
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-800">
-            Create Account
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-800">Create Account</h1>
 
-          <p className="text-gray-500 mt-2">
-            Register to continue
-          </p>
+          <p className="text-gray-500 mt-2">Register to continue</p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             label="Full Name"
             type="text"
@@ -100,22 +84,12 @@ const Register = () => {
             onChange={handleChange}
           />
 
-          <Button
-            text={
-              loading
-                ? "Creating Account..."
-                : "Create Account"
-            }
-          />
+          <Button text={loading ? "Creating Account..." : "Create Account"} />
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Already have an account?
-
-          <Link
-            to="/login"
-            className="ml-1 text-black font-semibold"
-          >
+          <Link to="/login" className="ml-1 text-black font-semibold">
             Login
           </Link>
         </p>

@@ -27,7 +27,9 @@ const Projects = () => {
       setLoading(true);
       const { data } = await API.post("/projects", { title, description });
       setProjects((prev) => [data.project, ...prev]);
-      setTitle(""); setDescription(""); setShowForm(false);
+      setTitle("");
+      setDescription("");
+      setShowForm(false);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to create project");
     } finally {
@@ -43,10 +45,18 @@ const Projects = () => {
     } catch {}
   };
 
-  useEffect(() => { fetchProjects(); }, []);
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: "'DM Sans', sans-serif" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f8fafc",
+        fontFamily: "'DM Sans', sans-serif",
+      }}
+    >
       <header className="pp-header">
         <div className="pp-header-inner">
           <span className="pp-logo">TaskFlow</span>
@@ -56,7 +66,9 @@ const Projects = () => {
               className={`pp-add-btn ${showForm ? "cancel" : ""}`}
               onClick={() => setShowForm((p) => !p)}
             >
-              <span style={{ fontSize: 16, lineHeight: 1 }}>{showForm ? "×" : "+"}</span>
+              <span style={{ fontSize: 16, lineHeight: 1 }}>
+                {showForm ? "×" : "+"}
+              </span>
               {showForm ? "Cancel" : "New Project"}
             </button>
           </div>
@@ -102,13 +114,21 @@ const Projects = () => {
             <div className="pp-empty-icon">✦</div>
             <div className="pp-empty-title">No projects yet</div>
             <div className="pp-empty-sub">
-              <span className="pp-empty-link" onClick={() => setShowForm(true)}>Create your first project</span> to get started.
+              <span className="pp-empty-link" onClick={() => setShowForm(true)}>
+                Create your first project
+              </span>{" "}
+              to get started.
             </div>
           </div>
         ) : (
           <div className="pp-grid">
             {projects.map((project, index) => (
-              <ProjectCard key={project._id} project={project} onDelete={handleDelete} index={index} />
+              <ProjectCard
+                key={project._id}
+                project={project}
+                onDelete={handleDelete}
+                index={index}
+              />
             ))}
             <button className="pp-new-card" onClick={() => setShowForm(true)}>
               <div className="pp-new-icon">+</div>

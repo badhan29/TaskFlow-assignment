@@ -31,7 +31,6 @@ const taskSchema = new mongoose.Schema(
       required: true,
     },
 
-    // FIX: was missing — without this, ownership checks crash
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -47,7 +46,7 @@ const taskSchema = new mongoose.Schema(
       type: Date,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model("Task", taskSchema);

@@ -50,7 +50,6 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
   const handleStatusChange = async (newStatus) => {
     if (busy) return;
     const prevStatus = task.status;
-    // Optimistic update
     onUpdate({ ...task, status: newStatus });
     try {
       setBusy(true);
@@ -58,7 +57,6 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
       const res = await updateTask(task._id, { status: newStatus });
       onUpdate(res.data.data);
     } catch (e) {
-      // Revert on failure and show error
       onUpdate({ ...task, status: prevStatus });
       setErr(e.response?.data?.message || "Failed to update status");
     } finally {
@@ -72,7 +70,6 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
       setBusy(true);
       setErr("");
       await deleteTask(task._id);
-      // FIX: pass String id so the filter in Tasks.jsx works correctly
       onDelete(String(task._id));
     } catch (e) {
       setErr(e.response?.data?.message || "Failed to delete");
@@ -83,8 +80,6 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
   return (
     <>
       <div className={`tc-card ${task.status === "done" ? "done-card" : ""}`}>
-
-        {/* Status indicator — visual only, no onClick to avoid double-firing */}
         <div
           className="tc-status-indicator"
           style={{ borderColor: s.dot, color: s.dot }}
@@ -92,23 +87,22 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
           {busy ? "…" : s.icon}
         </div>
 
-        {/* Content */}
         <div className="tc-body">
           <h3 className={`tc-title ${task.status === "done" ? "crossed" : ""}`}>
             {task.title}
           </h3>
-          {task.description && (
-            <p className="tc-desc">{task.description}</p>
-          )}
+          {task.description && <p className="tc-desc">{task.description}</p>}
           <div className="tc-meta">
-            {/* Status badge */}
             <span
               className="tc-badge"
-              style={{ background: s.bg, borderColor: s.border, color: s.color }}
+              style={{
+                background: s.bg,
+                borderColor: s.border,
+                color: s.color,
+              }}
             >
               {s.icon} {s.label}
             </span>
-            {/* Priority badge */}
             {p && (
               <span
                 className="tc-badge"
@@ -131,7 +125,6 @@ export default function TaskCard({ task, onUpdate, onDelete }) {
           {err && <div className="tc-err">⚠ {err}</div>}
         </div>
 
-        {/* Action buttons — single source of status change */}
         <div className="tc-actions">
           {task.status !== "done" ? (
             <button

@@ -13,13 +13,16 @@ export const createTask = async (req, res) => {
       });
     }
 
-    // Make sure the project belongs to the logged-in user
     const projectDoc = await Project.findById(project);
     if (!projectDoc) {
-      return res.status(404).json({ success: false, message: "Project not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Project not found" });
     }
     if (projectDoc.createdBy.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ success: false, message: "Not authorized" });
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
     }
 
     const task = await Task.create({
@@ -27,7 +30,7 @@ export const createTask = async (req, res) => {
       description,
       priority: priority || "medium",
       project,
-      createdBy: req.user._id,   // FIX: save the owner
+      createdBy: req.user._id,
     });
 
     res.status(201).json({
@@ -40,17 +43,17 @@ export const createTask = async (req, res) => {
   }
 };
 
-// GET TASKS BY PROJECT — only owner can see
 export const getTasksByProject = async (req, res) => {
   try {
     const { projectId } = req.params;
 
     const project = await Project.findById(projectId);
     if (!project) {
-      return res.status(404).json({ success: false, message: "Project not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Project not found" });
     }
 
-    // FIX: only the project owner can fetch its tasks
     if (project.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
@@ -68,7 +71,6 @@ export const getTasksByProject = async (req, res) => {
   }
 };
 
-// GET SINGLE TASK — only owner
 export const getTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id)
@@ -76,12 +78,15 @@ export const getTask = async (req, res) => {
       .populate("project", "title");
 
     if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
-    // FIX: ownership check
     if (task.createdBy.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ success: false, message: "Not authorized" });
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
     }
 
     res.status(200).json({ success: true, data: task });
@@ -90,16 +95,16 @@ export const getTask = async (req, res) => {
   }
 };
 
-// UPDATE TASK — only owner; only allow safe fields
 export const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
     if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
-    // FIX: this used to crash because task.createdBy didn't exist in the model
     if (task.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
@@ -107,8 +112,8 @@ export const updateTask = async (req, res) => {
       });
     }
 
-    // FIX: only allow these fields to be updated (never let status/owner be injected freely)
-    const { title, description, status, priority, dueDate, assignedTo } = req.body;
+    const { title, description, status, priority, dueDate, assignedTo } =
+      req.body;
     const allowedUpdates = {};
     if (title !== undefined) allowedUpdates.title = title;
     if (description !== undefined) allowedUpdates.description = description;
@@ -120,7 +125,7 @@ export const updateTask = async (req, res) => {
     const updatedTask = await Task.findByIdAndUpdate(
       req.params.id,
       allowedUpdates,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     res.status(200).json({
@@ -133,13 +138,14 @@ export const updateTask = async (req, res) => {
   }
 };
 
-// DELETE TASK — only owner
 export const deleteTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
     if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
     if (task.createdBy.toString() !== req.user._id.toString()) {
@@ -151,7 +157,9 @@ export const deleteTask = async (req, res) => {
 
     await Task.findByIdAndDelete(req.params.id);
 
-    res.status(200).json({ success: true, message: "Task deleted successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Task deleted successfully" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

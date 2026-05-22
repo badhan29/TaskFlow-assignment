@@ -24,13 +24,10 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-  
 
-  // Handle Login
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic Validation
     if (!formData.email || !formData.password) {
       return toast.error("Please fill all fields");
     }
@@ -40,22 +37,14 @@ const Login = () => {
 
       const data = await loginUser(formData);
 
-      // Save User Data
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify(data)
-      );
+      localStorage.setItem("userInfo", JSON.stringify(data));
       localStorage.setItem("token", data.token);
 
       toast.success("Login Successful");
 
-      // Redirect
       navigate("/projects");
     } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-          "Invalid Credentials"
-      );
+      toast.error(error.response?.data?.message || "Invalid Credentials");
     } finally {
       setLoading(false);
     }
@@ -63,27 +52,14 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center px-4">
-
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
-
-        {/* Logo / Heading */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-800">
-            Welcome Back
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-800">Welcome Back</h1>
 
-          <p className="text-gray-500 mt-2">
-            Login to continue
-          </p>
+          <p className="text-gray-500 mt-2">Login to continue</p>
         </div>
 
-        {/* Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
-
-          {/* Email */}
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             label="Email"
             type="email"
@@ -93,7 +69,6 @@ const Login = () => {
             onChange={handleChange}
           />
 
-          {/* Password */}
           <Input
             label="Password"
             type="password"
@@ -103,20 +78,11 @@ const Login = () => {
             onChange={handleChange}
           />
 
-          {/* Button */}
-          <Button
-            text={
-              loading
-                ? "Logging In..."
-                : "Login"
-            }
-          />
+          <Button text={loading ? "Logging In..." : "Login"} />
         </form>
 
-        {/* Footer */}
         <p className="text-center text-sm text-gray-500 mt-6">
           Don't have an account?
-
           <Link
             to="/register"
             className="ml-1 text-black font-semibold hover:underline"

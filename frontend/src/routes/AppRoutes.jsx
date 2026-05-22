@@ -11,7 +11,6 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        
         <Route
           path="/login"
           element={
@@ -30,7 +29,6 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Protected routes — require login */}
         <Route
           path="/projects"
           element={
@@ -49,7 +47,6 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Root redirect */}
         <Route
           path="/"
           element={
@@ -59,7 +56,6 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Catch-all: redirect unknown routes */}
         <Route path="*" element={<Navigate to="/projects" replace />} />
       </Routes>
     </BrowserRouter>

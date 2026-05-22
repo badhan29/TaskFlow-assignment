@@ -8,7 +8,6 @@ const projectSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // FIX: was required:true — frontend may not always send description
     description: {
       type: String,
       default: "",
@@ -21,7 +20,7 @@ const projectSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Project = mongoose.model("Project", projectSchema);

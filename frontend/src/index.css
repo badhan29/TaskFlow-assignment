@@ -41,18 +41,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
 
-/* Date picker icon fix for light theme */
 input[type="date"].tform-input::-webkit-calendar-picker-indicator {
   filter: invert(0.3);
 }
 
-/* ========== Projects Styles ========== */
 
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
         .pp-header {
@@ -124,7 +121,6 @@ input[type="date"].tform-input::-webkit-calendar-picker-indicator {
         .pp-new-icon { width: 36px; height: 36px; border-radius: 50%; border: 1px dashed rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 18px; }
       
 
-/* ========== Tasks Styles ========== */
 
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 
@@ -217,7 +213,6 @@ input[type="date"].tform-input::-webkit-calendar-picker-indicator {
         }
       
 
-/* ========== TaskForm Styles ========== */
 
         .tform-wrap {
           background: rgba(99,102,241,0.06);

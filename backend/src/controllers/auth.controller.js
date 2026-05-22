@@ -24,10 +24,7 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    const hashedPassword = await bcrypt.hash(
-      password,
-      10
-    );
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
       name,
@@ -55,8 +52,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-
-
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -77,10 +72,7 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(401).json({
