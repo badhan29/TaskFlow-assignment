@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+body {
+  font-family: sans-serif;
+}
+.Toastify__toast {
+  border-radius: 16px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.Toastify__toast--success {
+  background: #111827;
+  color: white;
+}
+
+.Toastify__toast--error {
+  background: #dc2626;
+  color: white;
+}
+
+.Toastify__progress-bar {
+  background: white;
+}
