@@ -24,6 +24,7 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
+  
 
   // Handle Login
   const handleSubmit = async (e) => {
@@ -44,11 +45,12 @@ const Login = () => {
         "userInfo",
         JSON.stringify(data)
       );
+      localStorage.setItem("token", data.token);
 
       toast.success("Login Successful");
 
       // Redirect
-      navigate("/dashboard");
+      navigate("/projects");
     } catch (error) {
       toast.error(
         error.response?.data?.message ||

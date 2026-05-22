@@ -40,10 +40,11 @@ const Register = () => {
         "userInfo",
         JSON.stringify(data)
       );
+      localStorage.setItem("token", data.token);
 
       toast.success("Account Created Successfully");
 
-      navigate("/login");
+      navigate("/projects");
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
